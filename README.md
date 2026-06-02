@@ -208,10 +208,3 @@ Returns:
 }
 ```
 
-## Deployment Notes
-
-- Frontend can be deployed to Vercel or Netlify.
-- Backend can be deployed to Render, Railway, or Fly.io.
-- Use MongoDB Atlas for production `MONGODB_URI`.
-- Set `CLIENT_URL` on the backend to the deployed frontend URL.
-- Set `VITE_API_URL` on the frontend to the deployed backend `/api` URL.
