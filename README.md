@@ -78,6 +78,7 @@ PORT=5000
 MONGODB_URI=mongodb://127.0.0.1:27017/dynamic_form_builder
 JWT_SECRET=replace-with-a-long-random-secret
 CLIENT_URL=http://localhost:5173
+CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 ```
 
 Frontend `client/.env`:
@@ -210,8 +211,20 @@ Returns:
 
 ## Deployment Notes
 
-- Frontend can be deployed to Vercel or Netlify.
-- Backend can be deployed to Render, Railway, or Fly.io.
-- Use MongoDB Atlas for production `MONGODB_URI`.
-- Set `CLIENT_URL` on the backend to the deployed frontend URL.
-- Set `VITE_API_URL` on the frontend to the deployed backend `/api` URL.
+- Frontend: deploy the `client` folder to Vercel.
+  - Framework preset: Vite
+  - Build command: `npm run build`
+  - Output directory: `dist`
+  - Environment variable: `VITE_API_URL=https://your-render-backend.onrender.com/api`
+- Backend: deploy the `server` folder to Render.
+  - A `render.yaml` blueprint is included at the repo root.
+  - Build command: `npm install && npm run build`
+  - Start command: `npm start`
+  - Health check path: `/api/health`
+  - Environment variables:
+    - `MONGODB_URI`: MongoDB Atlas connection string
+    - `JWT_SECRET`: long random string
+    - `CLIENT_URL`: deployed Vercel frontend URL
+    - `CORS_ORIGINS`: deployed Vercel frontend URL
+- Database: use MongoDB Atlas for production `MONGODB_URI`.
+- After both apps are deployed, update Render `CLIENT_URL` / `CORS_ORIGINS` with the Vercel URL and update Vercel `VITE_API_URL` with the Render backend URL.

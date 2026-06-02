@@ -14,6 +14,7 @@ import submissionRoutes from "./routes/submissions.js";
 const app = express();
 const allowedOrigins = new Set([
   env.clientUrl,
+  ...env.corsOrigins,
   "http://localhost:5173",
   "http://127.0.0.1:5173"
 ]);
